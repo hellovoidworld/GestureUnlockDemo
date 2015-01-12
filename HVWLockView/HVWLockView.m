@@ -131,8 +131,11 @@
     
     // 合成轨迹序列
     for (HVWLockButton *button in self.selectedButtons) {
+        // 清除选中状态
+        button.selected = NO;
+        
         // 添加到轨迹序列
-        [passPath appendFormat:@"%d", button.tag];
+        [passPath appendFormat:@"%ld", button.tag];
     }
 
     // 调用代理方法
@@ -140,7 +143,7 @@
         [self.delegate hvwLockView:self didFinishedWithPath:passPath];
     }
     
-    // 清除选中状态
+    // 清除选中状态，发现这种方法在真机8.2系统中不能起作用
     [self.selectedButtons makeObjectsPerformSelector:@selector(setSelected:) withObject:@(NO)];
     
     // 清空数组
